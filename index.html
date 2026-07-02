@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>奶媽奶量計算機</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="app">
+    <header class="hero">
+      <h1>奶媽奶量計算機</h1>
+      <p>輸入 4 項屬性，一鍵算出面板與兩種進圖結果。</p>
+    </header>
+
+    <section class="panel card" aria-labelledby="input-title">
+      <h2 id="input-title">輸入屬性</h2>
+      <div class="field-grid">
+        <label class="field">
+          <span>攻擊力 A</span>
+          <input id="attack" type="number" inputmode="decimal" min="0" step="any" placeholder="例：76337">
+        </label>
+        <label class="field">
+          <span>暴擊 C</span>
+          <input id="crit" type="number" inputmode="decimal" min="0" step="any" placeholder="例：58416.9">
+        </label>
+        <label class="field">
+          <span>命中 H</span>
+          <input id="hit" type="number" inputmode="decimal" min="0" step="any" placeholder="例：7300.4">
+        </label>
+        <label class="field">
+          <span>穿透 P</span>
+          <input id="penetration" type="number" inputmode="decimal" min="0" step="any" placeholder="例：22224.6">
+        </label>
+      </div>
+
+      <div class="actions">
+        <button id="calc-btn" class="btn btn-primary" type="button">立即計算</button>
+        <button id="reset-btn" class="btn btn-ghost" type="button">重置資料</button>
+      </div>
+      <p id="error-msg" class="error" role="alert" aria-live="polite"></p>
+    </section>
+
+    <section class="card" aria-labelledby="raw-title">
+      <h2 id="raw-title">面板屬性</h2>
+      <dl class="result-list">
+        <div class="row"><dt>面板暴擊率</dt><dd id="raw-crit-rate">-</dd></div>
+        <div class="row"><dt>面板治療量</dt><dd id="raw-heal">-</dd></div>
+      </dl>
+    </section>
+
+    <section class="card" aria-labelledby="atk-title">
+      <h2 id="atk-title">攻爆奶進圖屬性（天賦4、6階點暴擊）</h2>
+      <dl class="result-list">
+        <div class="row"><dt>進圖暴擊率</dt><dd id="atk-crit-rate">-</dd></div>
+        <div class="row"><dt>進圖治療量</dt><dd id="atk-heal">-</dd></div>
+      </dl>
+    </section>
+
+    <section class="card" aria-labelledby="pure-title">
+      <h2 id="pure-title">純攻/攻穿奶進圖屬性（天賦4、6階點攻擊）</h2>
+      <dl class="result-list">
+        <div class="row"><dt>進圖暴擊率</dt><dd id="pure-crit-rate">-</dd></div>
+        <div class="row"><dt>進圖治療量</dt><dd id="pure-heal">-</dd></div>
+      </dl>
+    </section>
+
+    <section class="card notes" aria-labelledby="formula-title">
+      <h2 id="formula-title">計算公式</h2>
+      <ul>
+        <li>面板暴擊率 = C / (A + H + P) × 100%</li>
+        <li>面板治療量 = A + C + H + P</li>
+        <li>攻爆奶進圖暴擊率 = ((C × 1.2) + 40) / (A + H + P) × 100%</li>
+        <li>攻爆奶進圖治療量 = 面板治療量 × 1.096875</li>
+        <li>純攻/攻穿奶進圖暴擊率 = (C × 0.989) / (A + H + P) × 100%</li>
+        <li>純攻/攻穿奶進圖治療量 = 面板治療量 × 1.07625</li>
+      </ul>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

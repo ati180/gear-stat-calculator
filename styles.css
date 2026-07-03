@@ -51,6 +51,40 @@ body {
   color: var(--text-sub);
 }
 
+.tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid var(--stroke);
+  border-radius: 18px;
+  padding: 6px;
+  margin-top: 14px;
+}
+
+.tab-btn {
+  border: 0;
+  border-radius: 13px;
+  padding: 12px;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-sub);
+  background: transparent;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.tab-btn.active {
+  background: linear-gradient(120deg, var(--accent), #57d88a);
+  color: #fff;
+  box-shadow: 0 8px 18px rgba(45, 189, 105, 0.3);
+}
+
+.tab-panel[hidden] {
+  display: none;
+}
+
 .card {
   background: var(--surface);
   backdrop-filter: blur(6px);
@@ -245,6 +279,69 @@ dd {
 
 .symbol-map li + li {
   margin-top: 4px;
+}
+
+.weight-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.weight-card {
+  border: 1px solid var(--stroke);
+  border-radius: 16px;
+  background: linear-gradient(180deg, #f8fafd, #f3f6fb);
+  padding: 12px 14px;
+}
+
+.weight-class {
+  margin: 0 0 8px;
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #1e9e53;
+}
+
+.weight-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px;
+  padding: 5px 0;
+  border-top: 1px solid rgba(40, 67, 92, 0.08);
+}
+
+.weight-name {
+  color: var(--text-sub);
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+.weight-vals {
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: #344b62;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.table-note {
+  margin: 10px 0 0;
+  color: var(--text-sub);
+  font-size: 0.88rem;
+}
+
+.talent-group + .talent-group {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px dashed rgba(40, 67, 92, 0.16);
+}
+
+.talent-title {
+  margin: 0 0 4px;
+  font-size: 0.98rem;
+  font-weight: 700;
+  color: #344b62;
 }
 
 @media (max-width: 760px) {

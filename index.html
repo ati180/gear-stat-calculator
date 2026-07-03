@@ -3,16 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>奶媽奶量計算機</title>
+  <title>阿提的奶媽奶量計算機</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css?v=20260703-2">
 </head>
 <body>
   <main class="app">
     <header class="hero">
-      <h1>奶媽奶量計算機</h1>
+      <h1>阿提的奶媽奶量計算機</h1>
       <p>輸入 4 項屬性，一鍵算出面板與兩種進圖結果。</p>
     </header>
 
@@ -20,20 +20,32 @@
       <h2 id="input-title">輸入屬性</h2>
       <div class="field-grid">
         <label class="field">
-          <span>攻擊力 A</span>
-          <input id="attack" type="number" inputmode="decimal" min="0" step="any" placeholder="例：76337">
+          <span class="field-label">攻擊力 A</span>
+          <div class="field-value-wrap">
+            <input id="attack" type="number" inputmode="decimal" min="0" step="any" placeholder="例：76337">
+            <span class="unit">點</span>
+          </div>
         </label>
         <label class="field">
-          <span>暴擊 C</span>
-          <input id="crit" type="number" inputmode="decimal" min="0" step="any" placeholder="例：58416.9">
+          <span class="field-label">暴擊 C</span>
+          <div class="field-value-wrap">
+            <input id="crit" type="number" inputmode="decimal" min="0" step="any" placeholder="例：58416.9">
+            <span class="unit">點</span>
+          </div>
         </label>
         <label class="field">
-          <span>命中 H</span>
-          <input id="hit" type="number" inputmode="decimal" min="0" step="any" placeholder="例：7300.4">
+          <span class="field-label">命中 H</span>
+          <div class="field-value-wrap">
+            <input id="hit" type="number" inputmode="decimal" min="0" step="any" placeholder="例：7300.4">
+            <span class="unit">點</span>
+          </div>
         </label>
         <label class="field">
-          <span>穿透 P</span>
-          <input id="penetration" type="number" inputmode="decimal" min="0" step="any" placeholder="例：22224.6">
+          <span class="field-label">穿透 P</span>
+          <div class="field-value-wrap">
+            <input id="penetration" type="number" inputmode="decimal" min="0" step="any" placeholder="例：22224.6">
+            <span class="unit">點</span>
+          </div>
         </label>
       </div>
 
@@ -53,7 +65,7 @@
     </section>
 
     <section class="card" aria-labelledby="atk-title">
-      <h2 id="atk-title">攻爆奶進圖屬性（天賦4、6階點暴擊）</h2>
+      <h2 id="atk-title">攻爆奶進圖屬性（天賦4、6階點暴擊，僅供參考）</h2>
       <dl class="result-list">
         <div class="row"><dt>進圖暴擊率</dt><dd id="atk-crit-rate">-</dd></div>
         <div class="row"><dt>進圖治療量</dt><dd id="atk-heal">-</dd></div>
@@ -61,7 +73,7 @@
     </section>
 
     <section class="card" aria-labelledby="pure-title">
-      <h2 id="pure-title">純攻/攻穿奶進圖屬性（天賦4、6階點攻擊）</h2>
+      <h2 id="pure-title">純攻/攻穿奶進圖屬性（天賦4、6階點攻擊，僅供參考）</h2>
       <dl class="result-list">
         <div class="row"><dt>進圖暴擊率</dt><dd id="pure-crit-rate">-</dd></div>
         <div class="row"><dt>進圖治療量</dt><dd id="pure-heal">-</dd></div>
@@ -71,16 +83,24 @@
     <section class="card notes" aria-labelledby="formula-title">
       <h2 id="formula-title">計算公式</h2>
       <ul>
-        <li>面板暴擊率 = C / (A + H + P) × 100%</li>
-        <li>面板治療量 = A + C + H + P</li>
-        <li>攻爆奶進圖暴擊率 = ((C × 1.2) + 40) / (A + H + P) × 100%</li>
-        <li>攻爆奶進圖治療量 = 面板治療量 × 1.096875</li>
-        <li>純攻/攻穿奶進圖暴擊率 = (C × 0.989) / (A + H + P) × 100%</li>
-        <li>純攻/攻穿奶進圖治療量 = 面板治療量 × 1.07625</li>
+        <li>先算面板基底：B = A + H + P</li>
+        <li>面板暴擊率 = C / B × 100%</li>
+        <li>面板治療量 = B + C</li>
+        <li>攻爆奶進圖後：攻擊力變成 A × 1.125，暴擊變成 C × 1.2625</li>
+        <li>純攻/攻穿奶進圖後：攻擊力變成 A × 1.2375，暴擊變成 C × 1.0675</li>
+        <li>進圖暴擊率 = 進圖後暴擊 /（進圖後攻擊力 + H + P），最高不超過 100%</li>
+        <li>進圖治療量 =（進圖後攻擊力 + H + P）×（1 + 進圖暴擊率）</li>
+      </ul>
+      <h3 class="map-title">符號對照</h3>
+      <ul class="symbol-map">
+        <li>A = Attack（攻擊力）</li>
+        <li>C = Crit（暴擊）</li>
+        <li>H = Hit（命中）</li>
+        <li>P = Penetration（穿透）</li>
       </ul>
     </section>
   </main>
 
-  <script src="script.js"></script>
+  <script src="script.js?v=20260703-9"></script>
 </body>
 </html>

@@ -52,16 +52,27 @@ function validateInput(values) {
   return "";
 }
 
+function clamp(value, min, max) {
+  return Math.min(Math.max(value, min), max);
+}
+
 function calculate(values) {
-  const denominator = values.A + values.H + values.P;
-  const rawCritRate = (values.C / denominator) * 100;
+  const baseHeal = values.A + values.H + values.P;
+  const rawCritRatio = values.C / baseHeal;
+  const rawCritRate = rawCritRatio * 100;
   const rawHeal = values.A + values.C + values.H + values.P;
 
-  const atkCritRate = (((values.C * 1.2) + 40) / denominator) * 100;
-  const atkHeal = rawHeal * 1.096875;
+  const atkBaseHeal = (values.A * 1.125) + values.H + values.P;
+  const atkCritValue = values.C * 1.2625;
+  const atkCritRatio = clamp(atkCritValue / atkBaseHeal, 0, 1);
+  const atkCritRate = atkCritRatio * 100;
+  const atkHeal = atkBaseHeal * (1 + atkCritRatio);
 
-  const pureCritRate = ((values.C * 0.989) / denominator) * 100;
-  const pureHeal = rawHeal * 1.07625;
+  const pureBaseHeal = (values.A * 1.2375) + values.H + values.P;
+  const pureCritValue = values.C * 1.0675;
+  const pureCritRatio = clamp(pureCritValue / pureBaseHeal, 0, 1);
+  const pureCritRate = pureCritRatio * 100;
+  const pureHeal = pureBaseHeal * (1 + pureCritRatio);
 
   return {
     rawCritRate,
